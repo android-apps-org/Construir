@@ -1,0 +1,50 @@
+// Parametrize your build
+
+task printGreeting {
+    doLast {
+        println greeting
+    }
+}
+
+// order of precedence:
+// 1. ext closure
+// 2. commandline
+// 3. gradle properties settings
+
+//ext {
+//    greeting = "Hello from inside the build script"
+//}
+
+
+// https://docs.gradle.org/current/userguide/userguide_single.html#build_environment
+
+
+
+/*
+Exercises:
+
+1. Run the "bundleWeb" task and note the error displayed by Gradle.
+
+2. Add the appropriate property to the gradle.properties file so that the
+"bundleWeb" task will create a zip file in a folder "build".
+
+3. Run the "bundleWeb" task by passing the value of the "webOutputDir" property
+via the command line so that the zip file is created in a folder "build2".
+
+4. Define an extra project property in your build script whose value
+determines the name of the zip file created by "bundleWeb" (Continue passing
+in the webOutputDir property via the command line).
+ */
+
+ext {
+    greeting = "Hello from inside the build script"
+    bundleBaseName = 'web2'             // 4. Define extra property
+}
+
+task bundleWeb(type: Zip) {
+    archiveBaseName = bundleBaseName    // 4. Replace with our new property
+    destinationDirectory = file(webOutputDir)
+
+    from 'src/web'
+}
+

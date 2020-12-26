@@ -1,0 +1,80 @@
+/*
+When working with an existing Gradle project use the wrapper for version consistency
+To create a new Gradle project install a local Gradle
+
+************ Java Installation Instructions **********
+1. Download the JDK
+2. Move downloaded files
+3. Let system know where to find installation
+
+Check Java is installed:   $ java -version
+The output should be something like:
+    java version "1.8.0_112"
+    Java(TM) SE Runtime Environment (build 1.8.0_112-b16)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.112-b16, mixed mode)
+
+*********** Mac Instructions *********
+http://www.oracle.com/technetwork/java/javase/downloads/index.html
+Setup environment variables:
+echo "# Java environment variables
+export JAVA_HOME=$(/usr/libexec/java_home)
+export JDK_HOME=$(/usr/libexec/java_home)
+" >> ~/.bash_profile&&\
+source ~/.bash_profile
+
+*********** Windows Instructions *********
+The variable name should be : JAVA_HOME
+The variable value: C:\Program Files\Java\jdk1.8.0_102
+
+
+
+************ Gradle Installation Instructions **********
+Manual Installation:
+1. Download Gradlew
+2. Put it where we want it on our machine
+3. Let system know where to find it
+
+Mac/Homebrew:   $ brew install gradle
+    Another options: http://sdkman.io/ install Software Development Kit Manager
+
+******************* MAC Instructions *******************
+Side note: Gradle relies on Groovy but brings along its own distribution
+Download https://gradle.org/gradle-download/ latest version of Gradle
+Unzip Gradle and move it to `/usr/local/gradle`
+Update .bash_profile file
+unzip ~/Downloads/gradle-3.3-all.zip -d /usr/local/gradle/ &&\
+echo '# Adding Gradle to system path
+export GRADLE_HOME=/usr/local/gradle/gradle-3.3
+PATH=$GRADLE_HOME/bin:$PATH
+export PATH' >> ~/.bash_profile &&\
+source ~/.bash_profile
+
+******************* Windows Instructions *******************
+Set variable name to: GRADLE_HOME
+Set variable value  `C:\gradle-3.3`
+Edit the PATH user variable by appending: ;%GRADLE_HOME%\bin\
+Run `gradle --version` to ensure installation is complete
+
+******************* When Done *******************
+No longer need to use wrapper script
+$ gradle --version  (check if installed)
+$ gradle --stop  (stop Gradle Daemon)
+$ gradle hello   (runs faster after first run)
+ */
+
+
+task hello_desc {
+    description "Hey student! Run this one :D"
+    group "Our demo"
+    doLast {
+        println "Hello World!"
+    }
+}
+
+
+task hello {
+    doLast {
+        println "Yo, Caitlin!"
+    }
+}
+

@@ -1,0 +1,82 @@
+// visualize dependencies: 
+// complete graph of dependencies or dependency insight report
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework:spring-core:4.1.1.RELEASE'
+}
+
+/*
+    $ gradle -b dep_report.gradle dependencies
+    $ gradle -b dep_report.gradle dependencies --configuration runtimeOnly
+
+    $ gradle -b dep_report.gradle dependencyInsight --dependency commons-logging
+
+From report: 'commons-logging' is a dependency of 'spring-core'
+             which in turn is one of our project's compile dependencies
+Main use of dependency reporting: to identify dependency conflicts
+ */
+
+dependencies {
+    implementation 'commons-logging:commons-logging:1.2'
+}
+
+/*
+Demo dependency conflict:
+    $ gradle -b dep_report.gradle dependencies
+'commons-logging' is now listed twice in dependency report
+project depends on version 1.2
+but 'spring-core' depends on version 1.1.3. 
+By default, Gradle resolves version conflicts to newest version (1.2 in this case)
+In report this is indicated with arrow showing version 1.2 is being chosen over 1.1.3
+
+    $ gradle -b dep_report.gradle dependencyInsight --dependency commons-logging
+commons-logging is shown twice 
+once as a direct dependency of compile
+once as a transitive dependency of spring core
+ */
+
+
+/*
+Different dependencies may be needed at different times in build process
+Logically related dependencies are grouped into configurations:
+    `compile`, `runtime`, `testCompile`, `testRuntime`
+
+Verify configurations extending other configurations:
+    $ gradle -b dep_report.gradle dependencies
+`compile` configuration contains `commons-logging` dependency
+`testCompile` contains both 'junit' and `commons-logging`
+ */
+
+dependencies {
+    implementation 'commons-logging:commons-logging:1.1.3'
+    testImplementation 'junit:junit:4.12'
+}
+
+// custom configurations
+// verify custom configuration: $ gradle -b dep_report.gradle dependencies
+
+configurations {
+    custom
+}
+
+dependencies {
+    custom 'com.google.guava:guava:18.0'
+}
+
+/*
+Configurations are really just fancy file collections 
+So can be used anywhere file collection can be used such as in Copy tasks
+Useful to download some dependencies from a remote repository and bundle them in project
+ */
+
+task copyDependencies(type: Copy) {
+    from configurations.custom
+    into 'build/libs'
+}
+

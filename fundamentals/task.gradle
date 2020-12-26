@@ -1,0 +1,98 @@
+
+project.task("myTask1")
+task("myTask2")
+task "myTask3"
+task myTask4
+myTask4.description = "Groovy description."
+myTask4.group = "Groovy..."
+myTask4.doLast { println "Do this last!" }
+myTask4.doFirst { println "Do this first!" }
+// myTask4 << { println "Do this after last!" }
+task myTask5 {
+    println { "Declare a task and give it an action on one stroke" }
+}
+task myTask6 {
+    description "Give some Description"
+    group "Some Group"
+    doLast {
+        println "Here is the Action!"
+    }
+}
+task myTask7 {
+    description("Some description")
+    group = ""  // Note: assigning collection to property in configuration closure requires equal sign!
+}
+
+
+/*
+Run this build script instead of default task.gradle:
+    $ gradle -b solution.gradle stringsAndTypes
+    $ gradle -b solution.gradle sAT
+*/
+
+task stringsAndTypes {
+    doLast {
+        println "Nice work abbreviating the task name"
+
+        def foo = 4.2
+
+        println "foo is of type: ${foo.class} and has value: $foo"
+
+        // http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html
+        println "The square root of 127 is ${Math.sqrt(127)}"
+
+        // http://docs.oracle.com/javase/7/docs/api/java/util/package-summary.html
+        foo = new java.util.Date()
+        println "foo is now of type: ${foo.class} and has value: $foo"
+
+        def hello = "Hello, Caitlin."
+        def name = hello.substring(7, 14)
+
+        println name.toUpperCase()
+    }
+}
+
+
+task closures {
+    doLast {
+        // TODO: Declare a closure that takes two arguments and adds them together
+        // HINT: http://www.groovy-lang.org/closures.html
+        def addTwo = {x, y -> x + y}
+
+        // TODO: Call closure with arguments 17 and 25
+        println addTwo(17, 25)
+    }
+}
+
+
+task lists {
+    doLast {
+        // TODO: Declare a list containing 5 of your favorite candies
+        // HINT: Try searching for "groovy list literal"
+        def candyList = ["Tomatoes","Carrots","Spinach","Radishes","Beef"]
+
+        // TODO: Create a new list of your candies in all caps
+        // HINT: http://mrhaki.blogspot.ca/2010/05/groovy-goodness-use-collect-with.html
+        def capitalCandies = candyList.collect{it.toUpperCase()}
+
+        capitalCandies.each{println it}
+    }
+}
+
+
+task foobar {
+    doLast {
+        def foo = "bar"
+        println "$foo + foo equals ${foo + 'foo'}"
+    }
+}
+
+
+task hello {
+    group = 'Udacity'
+    description = 'This is my first Gradle task'
+    doLast {
+        println 'Hello World!'
+    }
+}
+

@@ -1,0 +1,70 @@
+// Dependency: need to declare repository to fetch dependency from
+// Repository basics: folder full of JARs (flat directory repository)
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+
+// common repositories
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+}
+
+
+// resolving managed dependencies from Maven
+
+repositories {
+    maven {
+        url 'https://repo.foo.org/m2'
+    }
+}
+
+// resolving managed dependencies from Ivy with credentials
+
+repositories {
+    ivy {
+        url 'https://repo.foo.org/ivy'
+        credentials {
+            username 'user'
+            password 'secret'
+        }
+    }
+}
+
+// support for protocols for accessing repositories (http/https/sftp)
+
+repositories {
+    ivy {
+        url 'file:///home/user/repo'
+    }
+}
+
+
+// dependencies
+
+dependencies {
+    implementation 'com.google.guava:guava:18.0'
+}
+
+dependencies {
+    implementation group: 'com.google.guava', name: 'guava', version: '18.0'
+}
+
+// file dependencies: `fileCollection`, `fileTree`
+
+dependencies {
+    compile files('libs/foo.jar', 'libs/bar.jar')
+}
+
+// `fileTree`: specify filters (useful for including a number of files within a directory)
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: '*.jar')
+}
+

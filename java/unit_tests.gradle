@@ -1,0 +1,26 @@
+/*
+Test: Core support is provided for JUnit and TestNG testing frameworks
+
+Running our tests is easy, just run the 'test' task.
+
+    $ gradle -b unit_tests.gradle test
+
+Gradle performs all the required steps to run our tests
+It first compiles production code, followed by test code, then runs tests
+
+Gradle also provides detailed reports on our test execution
+These reports are placed in the 'build/reports' directory
+
+    $ open build/reports/tests/test/index.html
+*/
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+}
+

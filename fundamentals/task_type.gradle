@@ -1,0 +1,51 @@
+class MyTask extends DefaultTask {}
+
+class HelloTask extends DefaultTask {
+    @TaskAction
+    void doAction() {
+        println 'Hello World'
+    }
+}
+
+task hello(type: HelloTask)
+
+
+class HelloNameTask extends DefaultTask {
+    String firstName
+
+    @TaskAction
+    void doAction() {
+        println "Hello, $firstName"
+    }
+}
+
+task helloName(type: HelloNameTask) {
+    firstName = 'Jon DeMaagd'
+}
+
+// https://docs.gradle.org/current/userguide/custom_tasks.html
+
+
+/*
+Exercises:
+
+1. Define a new task class named "HiTask"
+2. Define a task action for your new task that simply prints the string
+   "Executing my custom task." to the console.
+3. Create a new task in your build script of type HelloTask named "hello".
+4. Run the "hello" task and observe the output.
+ */
+
+
+// 1. Define new class HelloTask which extends DefaultTask
+class HiTask extends DefaultTask {
+
+    // 2. Add a new method annotated with @TaskAction which prints to console
+    @TaskAction
+    void doAction() {
+        println "Executing my custom task."
+    }
+}
+
+task hi(type: HiTask)     // 3. Define task of type HelloTask
+

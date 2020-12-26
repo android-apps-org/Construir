@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'java' // 3. Add 'java' directory as a source directory
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Version': '1.0' // 2. Add manifest attribute
+    }
+}
+
+/*
+   $ gradle tasks --all
+
+four main tasks: assemble, check, build, and clean
+assemble: creates the output usually a JAR
+check: runs any tests set up
+build: depends on both assemble and check
+clean: deletes all the build output
+
+demo:
+    $ gradle assemble
+    $ gradle execute
+*/
+
+task execute(type: JavaExec) {
+    main = "com.jdemaagd.java.Person"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+
+/*
+
+The `main` property tells the JavaExec task the path of your main class
+
+https://docs.gradle.org/current/userguide/tutorial_java_projects.html
+https://docs.gradle.org/current/userguide/java_plugin.html
+https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html
+
+*/
+

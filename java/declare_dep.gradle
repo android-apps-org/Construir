@@ -1,0 +1,31 @@
+/*
+Exercises:
+
+1. Configure Maven Central as a repository
+2. Add a dependency to the 'compile' configuration for latest version of commons-io
+3. Add a file dependency that includes all the jars in the `libs` directory
+4. Run the `printDependencies` task to verify the dependencies (gradle -b declare_dep.gradle pD)
+    i.e. first fetch/load (2s)
+5. Run the `printDependencies` task with the --refresh-dependencies flag
+    i.e. getting cached copy (591ms)
+6. Run the `printDependencies` task one more time and note the difference in run time
+
+Hint: http://search.maven.org/
+ */
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()                                  // 1. Add Maven Central repository
+}
+
+dependencies {
+    implementation 'commons-io:commons-io:2.5'             // 2. Add commons-io dependency
+    implementation fileTree(dir: 'libs', include: '*.jar') // 3. Add 'lib' directory
+}
+
+task printDependencies {
+    doLast {
+        configurations.compile.each { println it.name }
+    }
+}

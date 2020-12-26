@@ -1,0 +1,38 @@
+/*
+Exercises:
+
+1. Create a new configuration called 'deps'
+2. Make the 'compile' configuration extend from the 'deps' configuration
+3. Add a dependency to latest version of Google's 'guava' library to 'deps' configuration
+4. Build the project and ensure there are no errors
+5. Add task called 'zipDeps' that creates a Zip file including all files from 'deps' configuration
+   Assign a baseName of 'dependencyArchive' and a  classifier of 'deps' to the archive
+6. Run the 'zipDeps' task and confirm it includes the 'guava' JAR.
+
+Hint: Take a look at the Configuration DSL Reference page for how to make
+one configuration extend from another.
+
+https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html
+ */
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    deps                                // 1. Create 'deps' configuration
+    compile.extendsFrom deps            // 2. Make 'compile' extend from 'deps'
+}
+
+dependencies {
+    deps 'com.google.guava:guava:18.0'  // 3. Add 'guava' dependency
+}
+
+task zipDeps(type: Zip) {               // 5. Add Zip task to bundle dependencies from 'deps'
+    archiveBaseName = "dependencyArchive"
+    archiveClassifier = 'deps'
+    from configurations.deps
+}
+
