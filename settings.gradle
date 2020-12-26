@@ -1,2 +1,4 @@
+include ':flavor'
 include ':fundamentals'
+include ':scratch'
 rootProject.name = "Construir"

@@ -34,7 +34,6 @@
 
 ## Resources
 
-- [Android Build System Overview](https://developer.android.com/studio/build)
 - [Gradle Version Manager](https://sdkman.io/)
 - [Learn Groovy](https://learnxinyminutes.com/docs/groovy/)
 - [Gradle DSL](https://docs.gradle.org/current/dsl/)
