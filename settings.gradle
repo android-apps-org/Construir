@@ -1,3 +1,4 @@
+include ':app', ':imageactivity', ':jokedisplay', ':jokes', ':jokesource', ':manualJokes', ':wizardJokes'
 include ':flavor'
 include ':fundamentals'
 include ':scratch'

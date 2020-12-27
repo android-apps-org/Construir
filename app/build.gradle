@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            storeFile file('keystore.jks')
+            // storeFile file("$rootDir/keystore.jks")
+            storePassword "$STORE_KEY"
+            keyAlias "$SIGNING_KEY"
+            keyPassword "$STORE_KEY"
+        }
+    }
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.jdemaagd.multi"
+        minSdkVersion 22
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            applicationIdSuffix 'com.jdemaagd.multi'
+            versionNameSuffix '1.0'
+        }
+//        shrunk {
+//            minifyEnabled true
+//            shrinkResources true
+//        }
+//        big {
+//            minifyEnabled false
+//            shrinkResources false
+//        }
+    }
+
+    flavorDimensions "testing"
+    productFlavors {
+        free {
+            applicationId "com.jdemaagd.multi.free"
+        }
+        paid {
+            applicationId "com.jdemaagd.multi.paid"
+        }
+    }
+}
+
+/*
+
+Now we need to declare a compile time dependency on the project :javaJokes
+
+This bit is a little tricky. The Java plugin defines an extra "default"
+configuration we haven't talked about yet. It adds its output: its JAR, to
+that configuration. When we declare our dependency on the :javaJokes project,
+we're actually depending on the "default" configuration of :javaJokes, which
+contains the output JAR.
+
+*/
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // freeImplementation 'com.google.android.gms:play-services-ads:19.6.0'
+
+    // proguard strips libraries if not used
+    implementation 'com.google.android.gms:play-services:12.0.1'
+
+    implementation project(':jokes')
+
+    implementation project(":wizardJokes")
+    implementation project(":manualJokes")
+
+    implementation project(":imageactivity")
+
+    implementation project(":jokedisplay")
+    implementation project(":jokesource")
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
