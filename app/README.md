@@ -32,3 +32,22 @@
 - Method i in android.util.Log not mocked
 - Use connected tests
 
+## Update Old Project
+
+- Update Android Gradle plugin
+  - [versions](https://developer.android.com/studio/releases/gradle-plugin.html#updating-gradle)
+  - [releases](https://gradle.org/releases/)
+  - $ gradle --version
+- Update Gradle Wrapper
+  - after updating to latest gradle run command:
+  - $ gradle wrapper
+  - re-creates wrapper including updates to shell scripts or wrapper jar
+  - open gradle/wrapper/gradle-wrapper.properties
+  - change ../../gradle-.6.7-bin.zip to ../../gradle-.6.7-all.zip
+  - sync gradle
+- Update SDK, build tools, libraries, etc.
+
+## Resources
+
+- [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin)
+
