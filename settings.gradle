@@ -1,2 +1,7 @@
+include ':app', ':imageactivity', ':jokedisplay', ':jokes', ':jokesource', ':manualJokes', ':wizardJokes'
+include ':flavor'
+// include ':frontend', ':backend'
 include ':fundamentals'
+include ':scratch'
+include 'projA', 'projB'
 rootProject.name = "Construir"

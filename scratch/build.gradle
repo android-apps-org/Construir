@@ -1,0 +1,66 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+    }
+}
+
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.jdemaagd.scratch"
+        minSdkVersion 22
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task tellJoke {
+    doLast {
+        println "What's a build master's favorite black metal band?"
+        println "Gradle of Filth!"
+    }
+}
+
+task tellAnotherJoke {
+    doLast {
+        println "How long does it take to master build tools?"
+        println "From the Gradle to the grave."
+    }
+}
+
+/*
+    $ chmod +x gradlew
+    $ ./gradlew tellJoke
+
+.gradle: where Gradle stores information for incremental build support
+.idea: where Android Studio stores its model of project
+build: where your build outputs would go
+       before build just holding onto some information related
+       to synchronization between Gradle's project model and Android Studio's project model
+.gradle: where the wrapper jar and properties are stored
+
+root:
+.iml: which stores more information on Android Studio's project model
+build.gradle:
+wrapper scripts:
+local.properties: Gradle will use later to find the location of the Android SDK
+ */
+
